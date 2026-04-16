@@ -1,0 +1,40 @@
+{
+	"$schema": "https://json.schemastore.org/tsconfig",
+	"compilerOptions": {
+		"declaration": true,
+		"declarationMap": true,
+		"esModuleInterop": true,
+		"forceConsistentCasingInFileNames": true,
+
+		"incremental": false,
+		"isolatedModules": true,
+		"module": "ESNext",
+		"target": "ESNext",
+		"moduleDetection": "force",
+		"moduleResolution": "bundler",
+		"resolveJsonModule": true,
+		"skipLibCheck": true,
+
+		"jsx": "react",
+
+		"strict": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"noImplicitOverride": true,
+		"noImplicitReturns": true,
+		"noImplicitThis": true,
+		"noPropertyAccessFromIndexSignature": true,
+		"noUncheckedIndexedAccess": true,
+		"strictNullChecks": true,
+		"strictFunctionTypes": true,
+		"strictBindCallApply": true,
+
+		"composite": false,
+		"useDefineForClassFields": true,
+		"lib": ["ESNext", "DOM"],
+		"sourceMap": true,
+		"noEmit": true,
+	},
+
+	"exclude": ["node_modules", "dist", "build"]
+}

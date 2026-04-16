@@ -1,0 +1,183 @@
+@import "tailwindcss";
+@source "../../../packages/ui";
+
+@font-face {
+	font-family: "inter";
+	src: url("./assets/fonts/inter.ttf") format("truetype");
+}
+
+:root {
+	/* --background: #9078ca; */
+	--background: #333437;
+	--surface: #fff;	
+
+	--card: #f4f4f4;
+	--card-hover: #e3e3e3;
+
+	/* ── Borders ── */
+	--border: #d5d3ce;
+	--border-strong: #d0cec8;
+
+	  /* ── Text ── */
+	--text:          #0e0e0e;
+	--text-muted:    #686762;
+	--text-faint:    #B0AEA8;
+
+	--primary: #0D7DD3;
+	--primary-hover: #0C72C0;
+	--primary-text: #f4f4f4;
+	--primary-tint: #b2d1e8;
+	--primary-tint-text: #42444c;
+
+	--secondary: #42444c;
+	--secondary-hover: #323438;
+	--secondary-text: #fff;
+	--secondary-tint: #dedede;
+	--secondary-tint-text: #111118;
+
+	--accent: #e3dacc;
+	--accent-hover: #e3d6c1;
+	--accent-text: #000;
+	--accent-tint: #f4e9d6;
+	--accent-tint-text: #111118;
+
+	/* Success — sage green, same family as original primary */
+	--success: #4a7c6f;
+	--success-hover: #3d6b5f;
+	--success-text: #fff;
+	--success-tint: #eef4f0;
+	--success-tint-text: #000;
+
+	/* Warning — warm ochre, leans toward secondary sand */
+	--warning: #ebe413;
+	--warning-hover: #dcd519;
+	--warning-text: #000;
+	--warning-tint: #f4e9d6;
+	--warning-tint-text: #000;
+
+	/* Danger — clay red, warm brown undertone */
+	--danger: #b2505d;
+	--danger-hover: #9a3f4b;
+	--danger-text: #fff;
+	--danger-tint: #e7d5d7;
+	--danger-tint-text: #2f2f36;
+}
+
+@theme inline {
+	--color-background: var(--background);
+	--color-surface: var(--surface);
+
+	--color-card: var(--card);
+	--color-card-hover: var(--card-hover);
+
+	--color-text:            var(--text);
+	--color-text-muted:      var(--text-muted);
+	--color-text-faint:      var(--text-faint);
+
+	--color-border: var(--border);
+	--color-border-strong: var(--border-strong);
+
+	--color-primary: var(--primary);
+	--color-primary-hover: var(--primary-hover);
+	--color-primary-text: var(--primary-text);
+	--color-primary-tint: var(--primary-tint);
+	--color-primary-tint-text: var(--primary-tint-text);
+
+	--color-secondary: var(--secondary);
+	--color-secondary-hover: var(--secondary-hover);
+	--color-secondary-text: var(--secondary-text);
+	--color-secondary-tint: var(--secondary-tint);
+	--color-secondary-tint-text: var(--secondary-tint-text);
+
+	--color-accent: var(--accent);
+	--color-accent-hover: var(--accent-hover);
+	--color-accent-text: var(--accent-text);
+	--color-accent-tint: var(--accent-tint);
+	--color-accent-tint-text: var(--accent-tint-text);
+
+
+	--color-success:           var(--success);
+	--color-success-hover:     var(--success-hover);
+	--color-success-text:      var(--success-text);
+	--color-success-tint:      var(--success-tint);
+	--color-success-tint-text:      var(--success-tint-text);
+
+	--color-warning:           var(--warning);
+	--color-warning-hover:     var(--warning-hover);
+	--color-warning-text:      var(--warning-text);
+	--color-warning-tint:      var(--warning-tint);
+	--color-warning-tint-text:      var(--warning-tint-text);
+
+	--color-danger:            var(--danger);
+	--color-danger-hover:      var(--danger-hover);
+	--color-danger-text:       var(--danger-text);
+	--color-danger-tint:       var(--danger-tint);
+	--color-danger-tint-text:       var(--danger-tint-text);
+}
+
+* {
+	box-sizing: border-box;
+}
+
+html,
+body {
+	font-family: "inter", sans-serif;
+	margin: 0;
+	padding: 0;
+
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Custom Scrollbar ── */
+::-webkit-scrollbar {
+	width: 10px;
+	height: 10px;
+}
+
+::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+	background: #444545;
+	border-radius: var(--radius-md);
+	border: 2px solid transparent;
+	background-clip: padding-box;
+	transition: background-color 0.2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: var(--primary);
+	background-clip: padding-box;
+}
+
+::-webkit-scrollbar-corner {
+	background: transparent;
+}
+
+.selection::selection {
+	background-color: var(--secondary-tint);
+	color: var(--secondary-tint-text);
+}
+
+.selection-primary::selection {
+	background-color: var(--primary-tint);
+	color: var(--primary-tint-text);
+}
+
+.selection-accent::selection {
+	background-color: var(--accent);
+	color: var(--accent-tint-text);
+}
+
+
+.overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+	/* z-index: 999; */
+}
