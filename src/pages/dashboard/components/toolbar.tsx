@@ -39,7 +39,7 @@ function Toolbar({ onAddNewPatient }: ToolbarProps) {
     <div className="flex items-center gap-2 w-full">
       <Input
         wrapperClassName='flex-1'
-        className="bg-white "
+        className="bg-white border-none"
         placeholder="search patient name, doctor"
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
@@ -103,7 +103,7 @@ function Toolbar({ onAddNewPatient }: ToolbarProps) {
         ))}
       </DropdownMenu>
 
-      <Button size="sm" leftIcon={<PlusIcon />} onClick={onAddNewPatient}>
+      <Button size="sm" leftIcon={<PlusIcon />} onClick={onAddNewPatient} className='h-7'>
         Add New Patient
       </Button>
     </div>

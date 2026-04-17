@@ -35,7 +35,7 @@ export function Modal({
   children,
   footer,
   size = 'md',
-  closeOnOverlay = true,
+  // closeOnOverlay = true,
   className,
 }: ModalProps) {
 
@@ -55,9 +55,11 @@ export function Modal({
   }, [open])
 
   const handleOverlayClick = useCallback((e: MouseEvent<HTMLDivElement>) => {
-    if (closeOnOverlay && (e.target as HTMLElement).hasAttribute('data-overlay'))
-      onClose()
-  }, [closeOnOverlay, onClose])
+    // if (closeOnOverlay && (e.target as HTMLElement).hasAttribute('data-overlay'))
+    //   onClose()
+
+    e.stopPropagation()
+  }, [])
 
   return createPortal(
     <Presence show={open}>
@@ -83,14 +85,14 @@ export function Modal({
         >
           {/* Header */}
           <div className="flex items-center justify-between px-1.5 py-1.5 border-b border-border shrink-0">
-            <div className="flex items-center gap-2 text-[14px] font-semibold text-text">
+            <div className="flex items-center gap-2 text-[13px] font-semibold text-text">
               {title}
             </div>
             <button
               onClick={onClose}
               aria-label="Close"
-              className="w-7 h-7 flex items-center justify-center rounded-sm
-                         text-text-faint hover:text-danger-tint-text hover:bg-danger-tint
+              className="w-6.5 h-6.5 flex items-center justify-center rounded-sm
+                         text-text bg-danger/30 hover:bg-danger/40
                          border-none cursor-pointer transition-colors"
             >
               <X size={15} strokeWidth={2} />

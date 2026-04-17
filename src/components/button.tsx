@@ -58,7 +58,7 @@ const outlineVariantClasses: Record<ButtonVariant, string> = {
 }
 
 const sizeClasses: Record<ButtonSize, string> = {
-  sm: 'px-3 text-[12px] h-7',
+  sm: 'px-3 text-[12px] h-6.5',
   md: 'px-3 text-[13px] h-8',
   lg: 'px-4 text-[14px] h-9'
 }

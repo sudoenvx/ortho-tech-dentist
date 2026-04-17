@@ -106,7 +106,7 @@ export function CaseTable({
 
   return (
     <>
-      <div className="bg-white rounded  border-secondary-tint overflow-hidden shadow-xs shadow-secondary/60">
+      <div className="bg-white rounded  border-secondary-tint overflow-hidden ">
         <table className="w-full">
           <thead>
             <tr className="bg-secondary/80">
@@ -241,7 +241,7 @@ export function CaseTable({
                       </td>
                     </tr>
                     {isExpanded && (
-                      <tr className="bg-[#e8e8e7]">
+                      <tr className="bg-secondary/15">
                         <td colSpan={6} className="px-3 py-2">
                           <div className="">
                             <JawStlFiles caseItem={caseItem} onUpdate={onUpdate} />

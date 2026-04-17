@@ -12,7 +12,7 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
         <DashboardActivityBar />
         <div className="flex flex-col flex-1">
             <DashboardNavbar />
-            <div className="flex-1 overflow-auto bg-[#f4f2f0]">
+            <div className="flex-1 overflow-auto bg-[#edecea]">
                 {children}
             </div>
         </div>
