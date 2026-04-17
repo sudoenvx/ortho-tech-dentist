@@ -38,7 +38,8 @@ function Toolbar({ onAddNewPatient }: ToolbarProps) {
   return (
     <div className="flex items-center gap-2 w-full">
       <Input
-        wrapperClassName="flex-1 bg-white"
+        wrapperClassName='flex-1'
+        className="bg-white "
         placeholder="search patient name, doctor"
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}

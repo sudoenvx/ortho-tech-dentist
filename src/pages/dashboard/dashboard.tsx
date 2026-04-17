@@ -11,6 +11,7 @@ import type { PatientCase } from '../../types/case'
 function Dashboard() {
   const [allCases, setAllCases] = useState<PatientCase[]>([])
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false)
+  const [isLoadingCases, setIsLoadingCases] = useState(true)
   const searchQuery = useCaseFilterStore((state) => state.searchQuery)
   const stepFilter = useCaseFilterStore((state) => state.stepFilter)
   const importantFilter = useCaseFilterStore((state) => state.importantFilter)
@@ -24,8 +25,14 @@ function Dashboard() {
   // Subscribe to cases from Firebase/preview
   useEffect(() => {
     const unsubscribe = subscribeToCases({
-      onData: (cases) => setAllCases(cases),
-      onError: (error) => console.error('Failed to fetch cases:', error),
+      onData: (cases) => {
+        setAllCases(cases)
+        setIsLoadingCases(false)
+      },
+      onError: (error) => {
+        console.error('Failed to fetch cases:', error)
+        setIsLoadingCases(false)
+      },
     })
 
     return () => unsubscribe()
@@ -64,26 +71,17 @@ function Dashboard() {
       {/* Cases section */}
       
       <div className="mt-4">
-        {paginated.length === 0 ? (
-          <div className="bg-white rounded-md p-6 text-center">
-            <div className="flex flex-col items-center justify-center">
-              
-              <p className="text-2xl font-medium text-text mb-1">No cases found</p>
-              <p className="text-sm text-text-muted">Try adjusting your filters or create a new case</p>
-            </div>
-          </div>
-        ) : (
-          <CaseTable
-            cases={paginated}
-            onDelete={handleDeleteCase}
-            onUpdate={handleUpdateCase}
-            currentPage={page}
-            totalPages={Math.ceil(filteredCases.length / PER_PAGE)}
-            totalItems={filteredCases.length}
-            perPage={PER_PAGE}
-            onPageChange={setPage}
-          />
-        )}
+        <CaseTable
+          cases={paginated}
+          onDelete={handleDeleteCase}
+          onUpdate={handleUpdateCase}
+          currentPage={page}
+          totalPages={Math.ceil(filteredCases.length / PER_PAGE)}
+          totalItems={filteredCases.length}
+          perPage={PER_PAGE}
+          onPageChange={setPage}
+          loading={isLoadingCases}
+        />
       </div>
 
       <CreateCaseModal

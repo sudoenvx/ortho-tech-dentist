@@ -15,13 +15,6 @@ interface CaseEditModalProps {
 // const DATE_FMT = new Intl.DateTimeFormat(undefined, { year: 'numeric', month: 'long', day: 'numeric' })
 const initials = (name: string) => name.split(' ').map(w => w[0]).slice(0, 2).join('').toUpperCase()
 
-// Add WEBSITE_OPTIONS to your types/case.ts:
-// export const WEBSITE_OPTIONS = [
-//   { value: 'softSmile', label: 'SoftSmile' },
-//   { value: 'orthero',   label: 'Orthero' },
-//   { value: 'DSmile',    label: 'DSmile' },
-// ]
-
 export function CaseEditModal({ open, onClose, caseItem, onSave }: CaseEditModalProps) {
   const [patientName, setPatientName] = useState(caseItem.patientName)
   const [doctorName, setDoctorName]   = useState(caseItem.doctorName)
@@ -56,10 +49,7 @@ export function CaseEditModal({ open, onClose, caseItem, onSave }: CaseEditModal
       open={open}
       onClose={handleCancel}
       title={
-        <div className="flex items-center gap-2">
-          <svg className="w-3.5 h-3.5 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.2}>
-            <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
-          </svg>
+        <div className="flex items-center gap-2 px-1">
           Edit Case Record
         </div>
       }

@@ -7,15 +7,16 @@ import { Button } from '../../../components/button'
 import { Input } from '../../../components/input'
 import { cn } from '../../../lib/cn'
 
-interface StlFilesProps {
+interface JawStlFilesProps {
     caseItem: PatientCase
     onUpdate?: (updatedCase: PatientCase) => void
 }
 
-export default function StlFiles({ caseItem, onUpdate }: StlFilesProps) {
+export default function JawStlFiles({ caseItem, onUpdate }: JawStlFilesProps) {
     const [editingIndex, setEditingIndex] = useState<number | null>(null)
     const [isAddingNew, setIsAddingNew] = useState(false)
     const [viewFile, setViewFile] = useState<string | null>(null)
+    const [jawDeleteIndex, setJawDeleteIndex] = useState<number | null>(null)
     const [tempName, setTempName] = useState('')
     const [tempFile, setTempFile] = useState('')
 
@@ -50,8 +51,18 @@ export default function StlFiles({ caseItem, onUpdate }: StlFilesProps) {
     }
 
     const deleteJawFile = (index: number) => {
-        const newJawFiles = caseItem.jawFiles.filter((_, i) => i !== index)
+        setJawDeleteIndex(index)
+    }
+
+    const confirmDeleteJawFile = () => {
+        if (jawDeleteIndex === null) return
+        const newJawFiles = caseItem.jawFiles.filter((_, i) => i !== jawDeleteIndex)
         onUpdate?.({ ...caseItem, jawFiles: newJawFiles })
+        setJawDeleteIndex(null)
+    }
+
+    const cancelDeleteJawFile = () => {
+        setJawDeleteIndex(null)
     }
 
     const viewInViewer = (stlFile: string) => {
@@ -88,8 +99,7 @@ export default function StlFiles({ caseItem, onUpdate }: StlFilesProps) {
     return (
         <>
             <div className="space-y-2">
-                <div className="flex items-center justify-between">
-                    <h4 className="text-sm font-medium"></h4>
+                <div className="flex justify-end">
                     <Button
                         onClick={startAdd}
                         size="sm"
@@ -211,6 +221,32 @@ export default function StlFiles({ caseItem, onUpdate }: StlFilesProps) {
                     </div>
                 </Modal>
             )}
+
+            <Modal
+                open={jawDeleteIndex !== null}
+                onClose={cancelDeleteJawFile}
+                title="Delete jaw file"
+            >
+                <div className="space-y-4 py-2">
+                    <p className="text-sm text-text">Are you sure you want to delete this jaw file? This action cannot be undone.</p>
+                    <div className="flex items-center justify-end gap-2">
+                        <Button
+                            variant="secondary"
+                            size="sm"
+                            onClick={cancelDeleteJawFile}
+                        >
+                            Cancel
+                        </Button>
+                        <Button
+                            variant="danger"
+                            size="sm"
+                            onClick={confirmDeleteJawFile}
+                        >
+                            Delete file
+                        </Button>
+                    </div>
+                </div>
+            </Modal>
         </>
     )
 }

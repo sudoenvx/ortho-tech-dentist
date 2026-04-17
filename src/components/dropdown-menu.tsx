@@ -198,7 +198,7 @@ export function DropdownMenu({
               role="menu"
               tabIndex={-1}
               style={{ top: pos.top, left: pos.left }}
-              className="fixed z-50 min-w-[200px] p-1 outline-none bg-surface border border-border rounded-xl flex flex-col gap-1 shadow-xs shadow-secondary/20"
+              className="fixed z-50 min-w-[200px] p-1 outline-none bg-surface  border-border rounded-md flex flex-col gap-1 shadow-xs shadow-secondary/80"
             >
               {children}
             </motion.div>
@@ -238,7 +238,7 @@ export function DropdownMenuItem({
 			className={`
 
         flex w-full items-center justify-between gap-2
-        rounded-md px-1.5 py-0.5 text-[13px] text-left lowercase
+        rounded px-1.5 py-0.5 text-[13px] text-left lowercase
         border-none cursor-pointer font-[inherit] outline-none
         transition-colors duration-100
         disabled:pointer-events-none disabled:opacity-40
@@ -291,7 +291,7 @@ export function DropdownMenuCheckItem({ checked, onCheckedChange, children }: Dr
 			}}
 			className={`
         flex w-full items-center gap-2
-        rounded-md px-1.5 py-0.5 text-[13px] text-left
+        rounded px-1.5 py-0.5 text-[13px] text-left
         border-none cursor-pointer font-[inherit] outline-none
         hover:bg-surface-raised focus:bg-surface-raised
         transition-colors duration-100

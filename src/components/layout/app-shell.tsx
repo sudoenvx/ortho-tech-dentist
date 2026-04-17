@@ -7,14 +7,12 @@ interface AppShellProps {
 
 export default function AppShell({ children }: AppShellProps) {
   return (
-    <div className="h-screen bg-background p-4 gap-3">
-      <div className="bg-white flex h-full rounded-xl overflow-hidden">
+    <div className="bg-white flex h-screen overflow-hidden">
         <div className="flex-1 overflow-hidden">
           <DashboardLayout>
             {children}
           </DashboardLayout>
         </div>
       </div>
-    </div>
   );
 }
