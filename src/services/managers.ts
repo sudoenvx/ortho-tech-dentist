@@ -22,7 +22,7 @@ import {
 //   deleteManagerAuthUserViaFunction,
 // } from '../lib/authUtils'
 import type { Manager, NewManagerInput } from '../types/manager'
-import { createUserWithEmailAndPassword, reauthenticateWithCredential } from 'firebase/auth'
+import { createUserWithEmailAndPassword } from 'firebase/auth'
 
 const previewManagers: Manager[] = [
   {
@@ -189,7 +189,7 @@ export async function deleteManager(id: string) {
       throw new Error('Manager not found')
     }
 
-    const managerEmail =  String(managerDoc.data()['email'] ?? '')
+    // const managerEmail =  String(managerDoc.data()['email'] ?? '')
 
     // Delete the Firebase Auth user
     // await deleteManagerAuthUserViaFunction(managerEmail)

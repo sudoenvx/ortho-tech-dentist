@@ -73,7 +73,7 @@ export function StepEditModal({ open, onClose, caseItem, onSave }: StepEditModal
         </div>
         <div className="flex-1 min-w-0">
           <p className="text-sm font-medium text-text truncate">{caseItem.patientName}</p>
-          <p className="text-xs text-text-muted">Dr. {caseItem.doctorName} · {caseItem.websiteName}</p>
+          <p className="text-xs text-text-muted">Dr. {caseItem.doctorName}</p>
         </div>
         <div className="text-right flex-shrink-0">
           <p className="text-[10px] uppercase tracking-widest text-text-faint font-medium">Progress</p>

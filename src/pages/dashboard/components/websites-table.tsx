@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react'
-import { Edit2, Trash2, Eye, EyeOff, Globe } from 'lucide-react'
+import { Edit2, Trash2, Globe } from 'lucide-react'
 import { Website } from '../../../types/website'
 import type { PatientCase } from '../../../types/case'
 import { cn } from '../../../lib/cn'

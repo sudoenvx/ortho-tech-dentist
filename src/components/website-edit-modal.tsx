@@ -3,7 +3,7 @@ import { Website, NewWebsiteInput } from '../types/website'
 import { Modal } from './modal'
 import { ModalFooter } from './modal-footers'
 import { Input } from './input'
-import { Switch, SwitchTile } from './switch'
+import { SwitchTile } from './switch'
 
 interface WebsiteEditModalProps {
   open: boolean
