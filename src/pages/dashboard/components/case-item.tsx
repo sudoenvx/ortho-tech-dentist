@@ -1,6 +1,8 @@
-import React, { useMemo, useState } from 'react'
+import React, { useMemo, useState, useEffect } from 'react'
 import { Edit2, List, Trash2 } from 'lucide-react'
 import type { PatientCase } from '../../../types/case'
+import { subscribeToWebsites } from '../../../services/websites'
+import type { Website } from '../../../types/website'
 import { cn } from '../../../lib/cn'
 import { StepEditModal } from '../../../components/step-edit-modal'
 import { CaseEditModal } from '../../../components/case-edit-modal'
@@ -54,8 +56,27 @@ const dateFormatter = new Intl.DateTimeFormat(undefined, {
 export function CaseItem({ caseItem, onDelete, onUpdate }: CaseItemProps) {
   const [showStepModal,   setShowStepModal]   = useState(false)
   const [showRecordModal, setShowRecordModal] = useState(false)
+  const [websites, setWebsites] = useState<Website[]>([])
+
+  // Subscribe to websites
+  useEffect(() => {
+    const unsubscribe = subscribeToWebsites({
+      onData: (websites) => {
+        setWebsites(websites)
+      },
+      onError: (error) => {
+        console.error('Failed to fetch websites:', error)
+      },
+    })
+
+    return () => unsubscribe()
+  }, [])
 
   const stage = useMemo(() => getStage(caseItem), [caseItem.steps])
+  
+  const getWebsiteName = (websiteId: string) => {
+    return websites.find((w) => w.id === websiteId)?.name || websiteId
+  }
 
   return (
     <>
@@ -102,7 +123,7 @@ export function CaseItem({ caseItem, onDelete, onUpdate }: CaseItemProps) {
         {/* Website */}
         <div>
           <span className="inline-block text-[11px] rounded px-2 py-0.5 bg-secondary-tint text-secondary-tint-text">
-            {caseItem.websiteName}
+            {getWebsiteName(caseItem.websiteId)}
           </span>
         </div>
 

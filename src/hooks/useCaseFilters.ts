@@ -11,8 +11,8 @@ export function useCaseFilters(
     const searchLower = searchQuery.toLowerCase()
     const matchesSearch =
       caseItem.patientName.toLowerCase().includes(searchLower) ||
-      caseItem.doctorName.toLowerCase().includes(searchLower) ||
-      caseItem.websiteName.toLowerCase().includes(searchLower)
+      caseItem.doctorName.toLowerCase().includes(searchLower)
+      // || caseItem.websiteName.toLowerCase().includes(searchLower)
 
     if (!matchesSearch) return false
 

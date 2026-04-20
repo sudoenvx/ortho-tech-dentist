@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { PatientCase, WebsiteName } from '../types/case'
+import { PatientCase } from '../types/case'
+import { Website } from '../types/website'
+import { subscribeToWebsites } from '../services/websites'
 import { Modal } from './modal'
 import { ModalFooter } from './modal-footers'
 import { Input } from './input'
@@ -18,31 +20,48 @@ const initials = (name: string) => name.split(' ').map(w => w[0]).slice(0, 2).jo
 export function CaseEditModal({ open, onClose, caseItem, onSave }: CaseEditModalProps) {
   const [patientName, setPatientName] = useState(caseItem.patientName)
   const [doctorName, setDoctorName]   = useState(caseItem.doctorName)
-  const [websiteName, setWebsiteName] = useState<WebsiteName>(caseItem.websiteName)
+  const [websiteId, setWebsiteId] = useState<string>(caseItem.websiteId)
+  const [websites, setWebsites] = useState<Website[]>([])
+
+  // Subscribe to websites
+  useEffect(() => {
+    const unsubscribe = subscribeToWebsites({
+      onData: (websites) => {
+        setWebsites(websites)
+      },
+      onError: (error) => {
+        console.error('Failed to fetch websites:', error)
+      },
+    })
+
+    return () => unsubscribe()
+  }, [])
 
   useEffect(() => {
     if (open) {
       setPatientName(caseItem.patientName)
       setDoctorName(caseItem.doctorName)
-      setWebsiteName(caseItem.websiteName)
+      setWebsiteId(caseItem.websiteId)
     }
   }, [open, caseItem])
 
   const handleSave = () => {
-    onSave({ ...caseItem, patientName, doctorName, websiteName, updatedAt: new Date() })
+    onSave({ ...caseItem, patientName, doctorName, websiteId, updatedAt: new Date() })
   }
 
   const handleCancel = () => {
     setPatientName(caseItem.patientName)
     setDoctorName(caseItem.doctorName)
-    setWebsiteName(caseItem.websiteName)
+    setWebsiteId(caseItem.websiteId)
     onClose()
   }
 
   const isDirty =
     patientName !== caseItem.patientName ||
     doctorName  !== caseItem.doctorName  ||
-    websiteName !== caseItem.websiteName
+    websiteId !== caseItem.websiteId
+
+  const selectedWebsite = websites.find((w) => w.id === websiteId)
 
   return (
     <Modal
@@ -65,7 +84,7 @@ export function CaseEditModal({ open, onClose, caseItem, onSave }: CaseEditModal
     >
       {/* Patient banner */}
       <div className="flex items-center gap-3 px-4 py-3 bg-card border-b border-border">
-        <div className="w-9 h-9 rounded-full bg-primary-tint text-primary-tint-text flex items-center justify-center text-xs font-semibold flex-shrink-0">
+        <div className="w-9 h-9 rounded-full bg-primary-tint text-primary-tint-text flex items-center justify-center text-xs font-semibold shrink-0">
           {initials(patientName || '?')}
         </div>
         <div>
@@ -108,8 +127,8 @@ export function CaseEditModal({ open, onClose, caseItem, onSave }: CaseEditModal
           <DropdownMenu
             trigger={
               <div className="h-7 w-full border border-border rounded px-2 text-xs text-text bg-surface flex items-center justify-between gap-2 transition-colors">
-                <span>{websiteName === 'softSmile' ? 'SoftSmile' : websiteName === 'orthero' ? 'Orthero' : 'DSmile'}</span>
-                <svg className="w-4 h-4 opacity-50 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}>
+                <span>{selectedWebsite?.name || 'Select a website'}</span>
+                <svg className="w-4 h-4 opacity-50 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}>
                   <polyline points="6 9 12 15 18 9" />
                 </svg>
               </div>
@@ -118,15 +137,15 @@ export function CaseEditModal({ open, onClose, caseItem, onSave }: CaseEditModal
             side="bottom"
             align="start"
           >
-            <DropdownMenuCheckItem checked={websiteName === 'softSmile'} onCheckedChange={() => setWebsiteName('softSmile')}>
-              SoftSmile
-            </DropdownMenuCheckItem>
-            <DropdownMenuCheckItem checked={websiteName === 'orthero'} onCheckedChange={() => setWebsiteName('orthero')}>
-              Orthero
-            </DropdownMenuCheckItem>
-            <DropdownMenuCheckItem checked={websiteName === 'DSmile'} onCheckedChange={() => setWebsiteName('DSmile')}>
-              DSmile
-            </DropdownMenuCheckItem>
+            {websites.map((website) => (
+              <DropdownMenuCheckItem 
+                key={website.id}
+                checked={websiteId === website.id} 
+                onCheckedChange={() => setWebsiteId(website.id)}
+              >
+                {website.name}
+              </DropdownMenuCheckItem>
+            ))}
           </DropdownMenu>
         </div>
 

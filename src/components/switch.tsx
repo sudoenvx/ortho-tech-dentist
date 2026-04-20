@@ -41,7 +41,7 @@ export function Switch({
       <div className={`
         relative ${trackSize} rounded-[10px] flex-shrink-0
         transition-colors duration-150
-        ${checked ? 'bg-st-primary' : 'bg-st-border-strong'}
+        ${checked ? 'bg-primary' : 'bg-border-strong'}
       `}>
         {/* thumb */}
         <div className={`
@@ -88,13 +88,13 @@ export function SwitchTile({
   return (
     <Card className={`
       flex items-center justify-between gap-2 cursor-pointer select-none
-      bg-st-card hover:bg-st-card-secondary rounded-sm p-3
+      bg-secondary/10 hover:bg-secondary/15 transition-colors duration-150 rounded! p-3
       ${disabled ? 'opacity-45 pointer-events-none' : ''}
       ${className ?? ''}
-    `}>
+    `} onClick={() => onCheckedChange(!checked)}>
       <div className="flex flex-col">
-        <span className="text-sm text-st-text leading-tight font-semibold">{label}</span>
-        {description && <span className="text-xs max-w-sm text-st-text-muted mt-0.5">{description}</span>}
+        <span className="text-[13px] text-text/90 leading-tight font-semibold">{label}</span>
+        {description && <span className="text-[11px] max-w-sm text-text-muted mt-0.5">{description}</span>}
       </div>
       <Switch
         checked={checked}

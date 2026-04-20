@@ -29,76 +29,7 @@ const EMPTY_STEPS: CaseSteps = {
   delivered: { completed: false },
 }
 
-const previewCases: PatientCase[] = [
-  {
-    id: 'preview-1',
-    patientName: 'Hend Abdelkader',
-    doctorName: 'Mahmoud Amarny',
-    websiteName: 'softSmile',
-    steps: {
-      stl: { completed: true, notes: 'Design approved' },
-      printing: { completed: false },
-      stacking: { completed: false },
-      finishing: { completed: false },
-      delivered: { completed: false },
-    },
-    jawFiles: [],
-    isImportant: false,
-    updatedAt: new Date('2026-04-11T08:30:00'),
-    createdAt: new Date('2026-04-11T08:30:00'),
-  },
-  {
-    id: 'preview-2',
-    patientName: 'Ahmad Nakhash',
-    doctorName: 'Ramy Adel',
-    websiteName: 'orthero',
-    steps: {
-      stl: { completed: true },
-      printing: { completed: true, notes: 'Printed successfully' },
-      stacking: { completed: false },
-      finishing: { completed: false },
-      delivered: { completed: false },
-    },
-    jawFiles: [],
-    isImportant: false,
-    updatedAt: new Date('2026-04-10T14:10:00'),
-    createdAt: new Date('2026-04-11T08:30:00'),
-  },
-  {
-    id: 'preview-3',
-    patientName: 'Maram Nassar',
-    doctorName: 'Ahmed Sayed',
-    websiteName: 'DSmile',
-    steps: {
-      stl: { completed: true },
-      printing: { completed: true },
-      stacking: { completed: true },
-      finishing: { completed: true },
-      delivered: { completed: true, notes: 'Delivered to patient' },
-    },
-    jawFiles: [],
-    isImportant: true,
-    updatedAt: new Date('2026-04-08T10:45:00'),
-    createdAt: new Date('2026-04-11T08:30:00'), 
-  },
-  {
-    id: 'preview-4',
-    patientName: 'Shahd Abo Asab',
-    doctorName: 'Mahmoud Amarny',
-    websiteName: 'softSmile',
-    steps: {
-      stl: { completed: false },
-      printing: { completed: false },
-      stacking: { completed: false },
-      finishing: { completed: false },
-      delivered: { completed: false },
-    },
-    jawFiles: [],
-    isImportant: false,
-    updatedAt: new Date('2026-04-06T17:15:00'),
-    createdAt: new Date('2026-04-11T08:30:00'),
-  },
-]
+const previewCases: PatientCase[] = []
 
 function toDate(value: unknown) {
   if (value instanceof Date) {
@@ -132,7 +63,7 @@ function normalizeCase(rawCase: Record<string, unknown>, id: string): PatientCas
     id,
     patientName: String(rawCase['patientName'] ?? ''),
     doctorName: String(rawCase['doctorName'] ?? ''),
-    websiteName: (rawCase['websiteName'] as PatientCase['websiteName']) ?? 'softSmile',
+    websiteId: String(rawCase['websiteId'] ?? 'website-1'),
     steps: normalizeSteps(rawCase['steps'] as Partial<CaseSteps> | undefined),
     jawFiles: (rawCase['jawFiles'] as JawFile[]) ?? [],
     isImportant: Boolean(rawCase['isImportant'] ?? false),
@@ -174,7 +105,7 @@ export async function addCase(input: NewPatientCaseInput) {
   const nextCase: Omit<PatientCase, 'id'> = {
     patientName: input.patientName.trim(),
     doctorName: input.doctorName.trim(),
-    websiteName: input.websiteName,
+    websiteId: input.websiteId,
     steps: EMPTY_STEPS,
     jawFiles: [],
     isImportant: false,

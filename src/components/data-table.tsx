@@ -80,7 +80,11 @@ export function DataTable<T>({
               <tr key={rowKey ? rowKey(item) : String((item as any).id ?? JSON.stringify(item))} className="border-t border-secondary-tint hover:bg-black/2 transition-colors">
                 {columns.map((column) => (
                   <td key={column.header} className={cn('px-3 py-2 align-center text-[13px] text-text leading-tight', column.cellClassName)}>
-                    {column.render ? column.render(item) : String(item[column.accessor ?? '' as T] ?? '')}
+                    {column.render
+                      ? column.render(item)
+                      : column.accessor
+                        ? String(item[column.accessor] ?? '')
+                        : ''}
                   </td>
                 ))}
                 {renderActions && (

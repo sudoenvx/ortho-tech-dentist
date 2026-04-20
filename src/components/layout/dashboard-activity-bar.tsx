@@ -1,10 +1,18 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
-import { HomeIcon, UserStar, SettingsIcon } from 'lucide-react'
+import { HomeIcon, UserStar, Globe, SettingsIcon } from 'lucide-react'
 import { motion } from 'motion/react'
 import { cn } from '../../lib/cn'
 
-const activities = [
+interface ActivityItem {
+  id: string
+  label: string
+  icon: React.ReactNode
+  to: string
+  disabled?: boolean
+}
+
+const activities: ActivityItem[] = [
   {
     id: 'dashboard',
     label: 'Dashboard',
@@ -12,10 +20,17 @@ const activities = [
     to: '/',
   },
   {
+    id: 'websites',
+    label: 'Websites',
+    icon: <Globe className='w-5 h-5' />,
+    to: '/websites',
+  },
+  {
     id: 'managers',
     label: 'Managers',
     icon: <UserStar className='w-5 h-5' />,
     to: '/managers',
+    disabled: true
   },
 ]
 
@@ -34,15 +49,18 @@ function ActivityFooter() {
   )
 }
 
-function ActivityItemComponent({ icon, label, to }: { icon: React.ReactNode; label: string; to: string }) {
+function ActivityItemComponent({ icon, label, to, disabled }: ActivityItem) {
   return (
     <NavLink
-      to={to}
+      to={disabled ? '#' : to}
       title={label}
+      onClick={(e) => disabled && e.preventDefault()}
       className={({ isActive }) =>
         cn(
           'h-8 w-full text-center rounded-sm flex items-center justify-center gap-3 transition-colors duration-150',
-          isActive
+          disabled
+            ? 'opacity-50 cursor-not-allowed bg-secondary/20 text-secondary'
+            : isActive
             ? 'bg-primary text-primary-text'
             : 'bg-secondary/20 text-secondary hover:text-text hover:bg-secondary/30',
         )
@@ -59,7 +77,7 @@ function DashboardActivityBar() {
       <div className="flex flex-col flex-1 gap-2">
         <div className="flex flex-col gap-2">
           {activities.map((activity) => (
-            <ActivityItemComponent key={activity.id} icon={activity.icon} label={activity.label} to={activity.to} />
+            <ActivityItemComponent id={activity.id} key={activity.id} icon={activity.icon} label={activity.label} to={activity.to} disabled={activity.disabled} />
           ))}
         </div>
       </div>

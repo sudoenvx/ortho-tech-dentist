@@ -28,3 +28,4 @@ export const auth = app ? getAuth(app) : null
 // connectAuthEmulator(auth!, "localhost:3030")
 export const casesCollectionName = 'cases'
 export const managersCollectionName = 'managers'
+export const websitesCollectionName = 'websites'

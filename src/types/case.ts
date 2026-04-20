@@ -1,4 +1,3 @@
-export type WebsiteName = 'softSmile' | 'orthero' | 'DSmile'
 export type CaseStep = 'stl' | 'printing' | 'stacking' | 'finishing' | 'delivered'
 export type CaseStepFilter = 'all' | 'empty' | CaseStep
 export type CaseImportantFilter = 'all' | 'important' | 'notImportant'
@@ -25,7 +24,7 @@ export interface PatientCase {
   id: string
   patientName: string
   doctorName: string
-  websiteName: WebsiteName
+  websiteId: string
   steps: CaseSteps
   jawFiles: JawFile[]
   isImportant: boolean
@@ -36,7 +35,7 @@ export interface PatientCase {
 export interface NewPatientCaseInput {
   patientName: string
   doctorName: string
-  websiteName: WebsiteName
+  websiteId: string
 }
 
 export const CASE_STEP_OPTIONS: Array<{

@@ -148,7 +148,7 @@ function ManagersPage() {
   return (
     <div className="p-3 max-w-7xl pt-4 mx-auto">
       <div className="flex flex-col gap-4">
-        <div className="bg-white  p-2 rounded shadow-xs flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex  gap-3 sm:items-center sm:justify-between">
           <div>
             <div className="text-md text-text">Ortho Managers</div>
             {/* <p className="text-sm text-text-muted">Define dashboard managers and grant permissions for editing content.</p> */}

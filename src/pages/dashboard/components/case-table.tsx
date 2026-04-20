@@ -1,6 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Edit2, List, Trash2, ChevronDown, ChevronRight, Globe, Star } from 'lucide-react'
 import type { PatientCase } from '../../../types/case'
+import { subscribeToWebsites } from '../../../services/websites'
+import type { Website } from '../../../types/website'
 import { cn } from '../../../lib/cn'
 import { StepEditModal } from '../../../components/step-edit-modal'
 import { CaseEditModal } from '../../../components/case-edit-modal'
@@ -45,12 +47,31 @@ export function CaseTable({
   onPageChange,
   loading = false,
 }: CaseTableProps) {
+  const [websites, setWebsites] = useState<Website[]>([])
   const [expandedRows, setExpandedRows] = useState<string | null>(null)
   const [showStepModal, setShowStepModal] = useState(false)
   const [showRecordModal, setShowRecordModal] = useState(false)
   const [selectedCase, setSelectedCase] = useState<PatientCase | null>(null)
   const [caseToDelete, setCaseToDelete] = useState<PatientCase | null>(null)
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false)
+
+  // Subscribe to websites
+  useEffect(() => {
+    const unsubscribe = subscribeToWebsites({
+      onData: (websites) => {
+        setWebsites(websites)
+      },
+      onError: (error) => {
+        console.error('Failed to fetch websites:', error)
+      },
+    })
+
+    return () => unsubscribe()
+  }, [])
+
+  const getWebsiteName = (websiteId: string) => {
+    return websites.find((w) => w.id === websiteId)?.name || websiteId
+  }
 
   const toggleRowExpansion = (caseId: string) => {
     setExpandedRows(expandedRows === caseId ? null : caseId)
@@ -179,7 +200,7 @@ export function CaseTable({
                       </td>
                       <td className="px-3 py-2">
                         <span className="flex items-center w-fit gap-1 text-[11px] font-semibold uppercase text-primary rounded">
-                          <Globe className='w-3 h-3' /> <span>{caseItem.websiteName}</span>
+                          <Globe className='w-3 h-3' /> <span>{getWebsiteName(caseItem.websiteId)}</span>
                         </span>
                       </td>
                       <td className="px-3 py-2">
