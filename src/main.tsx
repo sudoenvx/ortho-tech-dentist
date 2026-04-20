@@ -2,7 +2,6 @@ import React from 'react'
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { RouterProvider } from 'react-router-dom'
-import { AuthProvider } from './lib/authContext'
 import { ToastContainer } from './components/toast'
 import './index.css'
 import router from './router'
@@ -15,9 +14,7 @@ if (!root) {
 
 createRoot(root).render(
   <StrictMode>
-    <AuthProvider>
-      <RouterProvider router={router} />
-      <ToastContainer />
-    </AuthProvider>
+    <RouterProvider router={router} />
+    <ToastContainer />
   </StrictMode>,
 )

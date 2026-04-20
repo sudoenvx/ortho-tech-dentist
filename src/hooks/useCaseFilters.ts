@@ -25,15 +25,15 @@ export function useCaseFilters(
       return false
     }
 
-    // Step filter
+    // Step filter - check if the last completed step matches the filter
     if (stepFilter !== 'all') {
+      const steps = Object.entries(caseItem.steps)
+      const lastCompletedStep = steps.reverse().find(([_, step]) => step.completed === true)
+      
       if (stepFilter === 'empty') {
-        // Show cases with no steps completed
-        const hasAnyStep = Object.values(caseItem.steps).some((step) => step.completed === true)
-        return !hasAnyStep
+      return !lastCompletedStep
       } else {
-        // Show cases with specific step completed
-        return caseItem.steps[stepFilter]?.completed === true
+      return lastCompletedStep?.[0] === stepFilter
       }
     }
 

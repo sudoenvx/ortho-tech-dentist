@@ -1,0 +1,15 @@
+import React from "react"
+
+function DashboardNavbar() {
+  return (
+    <div className="bg-surface border-l border-border/0 text-text py-2 px-2">
+      <div className="flex items-center justify-between h-full gap-4">
+        <div className="flex items-center w-full justify-between gap-2">
+          <div className="text-sm font-medium">Ortho Tech Dashboard</div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export default DashboardNavbar
